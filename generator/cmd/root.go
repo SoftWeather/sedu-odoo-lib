@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/template"
 
-	odoo "github.com/skilld-labs/go-odoo"
+	odoo "github.com/SoftWeather/sedu-odoo-lib"
 
 	"github.com/spf13/cobra"
 )
@@ -38,7 +38,7 @@ You can provide models name as arguments to specify what models to generate. By 
 	models     string
 	c          *odoo.Client
 	t          *template.Template
-	g          *generator
+	g          *Generator
 )
 
 // Execute executes the root command.

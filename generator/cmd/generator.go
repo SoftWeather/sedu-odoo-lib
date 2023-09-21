@@ -7,7 +7,7 @@ import (
 	"strings"
 	"text/template"
 
-	odoo "github.com/skilld-labs/go-odoo"
+	odoo "github.com/SoftWeather/sedu-odoo-lib"
 )
 
 // GeneratorConfiguration is the configuration to create a new *generator by injecting
@@ -19,7 +19,7 @@ type GeneratorConfiguration struct {
 	DestFolder    string
 }
 
-type generator struct {
+type Generator struct {
 	odoo         *odoo.Client
 	tmpl         *template.Template
 	destFolder   string
@@ -27,11 +27,11 @@ type generator struct {
 }
 
 // NewGenerator creates a new *generator.
-func NewGenerator(cfg GeneratorConfiguration) *generator {
-	return &generator{odoo: cfg.Odoo, tmpl: cfg.ModelTemplate, formatModels: cfg.FormatModels, destFolder: cfg.DestFolder}
+func NewGenerator(cfg GeneratorConfiguration) *Generator {
+	return &Generator{odoo: cfg.Odoo, tmpl: cfg.ModelTemplate, formatModels: cfg.FormatModels, destFolder: cfg.DestFolder}
 }
 
-func (g *generator) handleModels(models []string) error {
+func (g *Generator) handleModels(models []string) error {
 	mm, err := g.getModels(models)
 	if err != nil {
 		return err
@@ -42,7 +42,7 @@ func (g *generator) handleModels(models []string) error {
 	return nil
 }
 
-func (g *generator) getModels(models []string) ([]*model, error) {
+func (g *Generator) getModels(models []string) ([]*model, error) {
 	if len(models) == 0 {
 		var err error
 		models, err = g.getAllModelsName()
@@ -65,7 +65,7 @@ func (g *generator) getModels(models []string) ([]*model, error) {
 	return mm, nil
 }
 
-func (g *generator) getAllModelsName() ([]string, error) {
+func (g *Generator) getAllModelsName() ([]string, error) {
 	ims, err := g.odoo.FindIrModels(nil, nil)
 	if err != nil || ims == nil {
 		return []string{}, nil
@@ -77,7 +77,7 @@ func (g *generator) getAllModelsName() ([]string, error) {
 	return models, nil
 }
 
-func (g *generator) modelFieldsFromModel(model string) ([]*modelField, error) {
+func (g *Generator) modelFieldsFromModel(model string) ([]*modelField, error) {
 	imfs, err := g.odoo.FindIrModelFieldss(odoo.NewCriteria().Add("model", "=", model), nil)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (g *generator) modelFieldsFromModel(model string) ([]*modelField, error) {
 	return g.irModelFieldsToModelFields(imfs), nil
 }
 
-func (g *generator) irModelFieldsToModelFields(imfs *odoo.IrModelFieldss) []*modelField {
+func (g *Generator) irModelFieldsToModelFields(imfs *odoo.IrModelFieldss) []*modelField {
 	var mfs []*modelField
 	for _, imf := range *imfs {
 		mfs = append(mfs, newModelField(imf.Name.Get(), imf.Ttype.Get().(string)))
@@ -93,7 +93,7 @@ func (g *generator) irModelFieldsToModelFields(imfs *odoo.IrModelFieldss) []*mod
 	return mfs
 }
 
-func (g *generator) generateModels(models []*model) error {
+func (g *Generator) generateModels(models []*model) error {
 	for _, m := range models {
 		filePath := g.destFolder + "/" + strings.Replace(m.Name, ".", "_", -1) + ".go"
 		output, err := os.Create(filePath)

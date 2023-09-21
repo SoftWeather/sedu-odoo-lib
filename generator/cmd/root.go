@@ -2,11 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	odoo "github.com/SoftWeather/sedu-odoo-lib/sedu-oddo-lib"
 	"os"
 	"strings"
 	"text/template"
-
-	odoo "github.com/SoftWeather/sedu-odoo-lib"
 
 	"github.com/spf13/cobra"
 )

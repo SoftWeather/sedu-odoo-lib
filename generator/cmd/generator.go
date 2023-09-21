@@ -2,12 +2,11 @@ package cmd
 
 import (
 	"fmt"
+	odoo "github.com/SoftWeather/sedu-odoo-lib/sedu-oddo-lib"
 	"os"
 	"os/exec"
 	"strings"
 	"text/template"
-
-	odoo "github.com/SoftWeather/sedu-odoo-lib"
 )
 
 // GeneratorConfiguration is the configuration to create a new *generator by injecting

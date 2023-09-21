@@ -39,11 +39,11 @@ type SlideChannel struct {
 	WebsiteMetaTitle        *Selection `xmlrpc:"website_meta_title,omptempty"`
 	WebsiteMetaDescription  *Selection `xmlrpc:"website_meta_description,omptempty"`
 	WebsiteMetaKeywords     *Selection `xmlrpc:"website_meta_keywords,omptempty"`
-	SeoName                 *Selection `xmlrpc:"seo_name,omptempty"`
-	Name                    *Selection `xmlrpc:"name,omptempty"`
-	Description             *Selection `xmlrpc:"description,omptempty"`
-	DescriptionShort        *Selection `xmlrpc:"description_short,omptempty"`
-	DescriptionHtml         *Selection `xmlrpc:"description_html,omptempty"`
+	SeoName                 *String    `xmlrpc:"seo_name,omptempty"`
+	Name                    *String    `xmlrpc:"name,omptempty"`
+	Description             *String    `xmlrpc:"description,omptempty"`
+	DescriptionShort        *String    `xmlrpc:"description_short,omptempty"`
+	DescriptionHtml         *String    `xmlrpc:"description_html,omptempty"`
 	EnrollMsg               *Selection `xmlrpc:"enroll_msg,omptempty"`
 	CoverProperties         *String    `xmlrpc:"cover_properties,omptempty"`
 	TotalTime               *Float     `xmlrpc:"total_time,omptempty"`

@@ -1,4 +1,4 @@
-module github.com/skilld-labs/go-odoo
+module github.com/SoftWeather/sedu-odoo-lib
 
 go 1.18
 
